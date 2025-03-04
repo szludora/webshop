@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { LocalStorageService } from '../../local-storage.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-cart',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  templateUrl: './cart.component.html',
+  styleUrl: './cart.component.scss',
 })
-export class HomeComponent {}
+export class CartComponent {}
