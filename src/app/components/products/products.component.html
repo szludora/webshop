@@ -1,22 +1,24 @@
 <div
-  *ngIf="products.length; else loading"
+  *ngIf="products; else loading"
   class="d-flex flex-wrap gap-5 cards justify-content-center"
 >
-  <div *ngFor="let product of products" class="card product p-2">
-    <div class="imgAndBody p-3 d-flex flex-column">
+<div *ngFor="let product of products; let index = index" class="card product p-2 " (click)="navigateToPath(index, $event)">
+    <div class="imgAndBody p-3 d-flex flex-column" >
       <img
         [src]="product.image"
         alt="{{ product.title }}"
         class="card-img-top mx-auto"
       />
-      <div class="card-body">
+      <div class="card-body" >
         <div class="card-text">
           <p class="title">
             {{ product.title }}
           </p>
           <p class="price">{{ product.price }} €</p>
         </div>
-        <button class="btn btn-primary" (click)="addToCart(product)">Add To Cart</button>
+        <button class="btn btn-primary" (click)="addToCart(product)">
+          Add To Cart
+        </button>
       </div>
     </div>
   </div>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Product } from './interfaces/product';
-import { CartItem } from './models/cartitem/cartitem.component';
 
 @Injectable({
   providedIn: 'root',
@@ -8,47 +7,85 @@ import { CartItem } from './models/cartitem/cartitem.component';
 export class CartService {
   constructor() {}
 
-  addToCart(product: Product): void {
-    const cart = this.getCart();
+  addToCart(product: {
+    id: string;
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+    image: string;
+  }): void {
+    const cart = this.getCart('cart');
 
-    const existingItem = cart.find((item) => Number(item.product.id) === Number(product.id));
-  
+    const existingItem = cart.find(
+      (item: {
+        id: string;
+        title: string;
+        description: string;
+        price: number;
+        quantity: number;
+        image: string;
+      }) => Number(item.id) === Number(product.id)
+    );
+
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
-      cart.push(new CartItem(product, 1));
+      let newProduct: Product = {
+        id: product.id,
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        quantity: product.quantity,
+        image: product.image,
+      };
+      cart.push(newProduct);
     }
-  
-    this.saveCart(cart);
+
+    this.saveCart('cart', cart);
   }
-  
-  removeFromCart(productId: number): void {
-    
-    let cart = this.getCart();
+
+  removeFromCart(productId: string) {
+    let cart = this.getCart('cart');
 
     const existingItem = cart.find(
-      (item) => Number(item.product.id) === productId
+      (item: {
+        id: string;
+        title: string;
+        description: string;
+        price: number;
+        quantity: number;
+        image: string;
+      }) => item.id === productId
     );
 
     if (existingItem) {
       if (existingItem.quantity > 1) {
         existingItem.quantity -= 1;
       } else {
-        cart = cart.filter((item) => Number(item.product.id) !== productId);
+        cart = cart.filter(
+          (item: {
+            id: string;
+            title: string;
+            description: string;
+            price: number;
+            quantity: number;
+            image: string;
+          }) => item.id !== productId
+        );
       }
     }
 
-    this.saveCart(cart);
-    console.log(cart);
+    this.saveCart('cart', cart);
   }
 
-  getCart(): CartItem[] {
-    const cart = localStorage.getItem('cart');
+  getCart(key: string) {
+    const cart = localStorage.getItem(key);
     return cart ? JSON.parse(cart) : [];
   }
 
-  saveCart(cart: CartItem[]): void {
-    localStorage.setItem('cart', JSON.stringify(cart));
+  saveCart(key: string, cart: Product[]): void {
+    localStorage.setItem(key, JSON.stringify(cart));
   }
 
   clearCart(): void {

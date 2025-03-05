@@ -28,33 +28,41 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCart();
+    this.calculateTotal();
   }
 
   trackByProductId(index: number, item: any): number {
-    return item.product.id;
+    return item.id;
   }
 
   loadCart() {
-    this.cartItems = this.cartService.getCart();
+    this.cartItems = this.cartService.getCart('cart');
+
     this.calculateTotal();
     this.changeDetector.markForCheck();
   }
 
   calculateTotal(): void {
-    this.totalPrice = this.cartItems.reduce(
-      (acc, item) => acc + item.product.price * item.quantity,
-      0
-    );
+    this.totalPrice = 0;
+    let items = this.cartService.getCart('cart');
+    for (const item of items) {
+      this.totalPrice += item.price * item.quantity;
+    }
   }
 
-  removeItem(productId: number) {
-    console.log('Removing item with ID:', productId);
+  removeItem(productId: string) {
     this.cartService.removeFromCart(productId);
     this.loadCart();
   }
 
-  addItem(item: Product) {
-    console.log('Adding item:', item);
+  addItem(item: {
+    id: string;
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+    image: string;
+  }) {
     this.cartService.addToCart(item);
     this.loadCart();
   }

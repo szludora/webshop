@@ -1,0 +1,10 @@
+<div class="currentProduct" *ngIf="item">
+    <h2>{{ item.title }}</h2>
+    <img [src]="item.image" [alt]="item.title">
+    <p>{{ item.description }}</p>
+    <p>{{ item.price }} €</p>
+    <button class="btn-orange">-</button>
+    <button class="btn-orange">+</button>
+</div>
+
+<p *ngIf="!item">Betöltés...</p>
