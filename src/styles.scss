@@ -1,1 +1,28 @@
 @use "bootstrap/scss/bootstrap";
+
+$theme-colors: (
+  primary: #007bff,
+  secondary: #6c757d,
+  success: #28a745,
+  info: #17a2b8,
+  warning: #ffc107,
+  danger: #dc3545,
+  light: #f8f9fa,
+  dark: #343a40,
+);
+
+.nav-link {
+  color: black;
+  background-color: map-get($theme-colors, light);
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  background-color: map-get($theme-colors, info);
+  color: white;
+}
+
+.main{
+  background-color: rgb(255, 252, 246);
+}
+

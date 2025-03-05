@@ -1,0 +1,24 @@
+.card-img-top {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.card {
+  width: 350px;
+  height: 400px;
+  border: none;
+  box-shadow: rgb(151, 151, 151) 0px 5px 7px;
+}
+
+.price {
+  position: absolute;
+  bottom: 1em;
+  margin: 0;
+}
+
+.btn{
+    position: absolute;
+    bottom: .7em;
+    right: 1em;
+}

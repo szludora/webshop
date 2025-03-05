@@ -1,1 +1,22 @@
-<p>cart works!</p>
+<div class="cart">
+  <h2>Your Cart</h2>
+  <div *ngIf="cartItems.length; else emptyCart">
+    <ul>
+      <li *ngFor="let item of cartItems; trackBy: trackByProductId">
+        <img [src]="item.product.image" alt="{{ item.product.name }}"/>
+
+        <span>Title: {{ item.product.title }}</span>
+        <span>Price: {{ item.product.price }} €</span>
+        <span>Quantity: {{ item.quantity }}</span>
+
+        <button type="button" (click)="removeItem(item.product.id)">-</button>
+        <button type="button" (click)="addItem(item.product)">+</button>
+      </li>
+    </ul>
+    <p>Total: {{ totalPrice }} €</p>
+  </div>
+
+  <ng-template #emptyCart>
+    <p>Your cart is empty.</p>
+  </ng-template>
+</div>

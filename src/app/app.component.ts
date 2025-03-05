@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, TemplateRef } from '@angular/core';
 import { RouterOutlet, RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbOffcanvas, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +9,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'webaruhaz';
+  title = 'webshop';
+  private offcanvasService = inject(NgbOffcanvas);
+
+  openOffcanvas(content: TemplateRef<any>) {
+    this.offcanvasService.open(content, { position: 'top' });
+  }
 }
